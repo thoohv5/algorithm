@@ -2,6 +2,11 @@ package main
 
 import "fmt"
 
+/**
+快速排序
+时间复杂度：O(N*logN)
+空间复杂度：O(logN)
+*/
 func main() {
 	arr := []int{3, 9, 10, 30, 20, 10, 5, 7, 8, 10}
 
