@@ -3,24 +3,27 @@ package main
 import "fmt"
 
 func main() {
-	arr := []int{1, 4, 7, 8, 9, 9, 9, 14, 25, 38}
-	fmt.Println(binaryB(arr, 8))
+	arr := []int{10, 30, 80, 8, 9, 9, 9, 14, 25, 38}
+	fmt.Println(binaryB(arr))
 }
 
 /**
-在一个有序数组中，查找>=某个数最左的位置
+局部最小值
 */
-func binaryB(arr []int, val int) int {
+func binaryB(arr []int) int {
 
 	first := 0
 	end := len(arr)
+	if end == 0 {
+		return -1
+	}
 	for first < end {
-		middle := (end - first) / 2
-		if middle == 0 {
-			return end
+		if end-first == 1 {
+			return arr[0]
 		}
-		if m := arr[first+middle]; m < val {
-			first = middle + 1
+		middle := first + (end-first)/2
+		if arr[middle] > arr[middle+1] {
+			first = middle
 		} else {
 			end = middle - 1
 		}
