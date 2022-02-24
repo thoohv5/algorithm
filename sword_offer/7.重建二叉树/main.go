@@ -10,6 +10,9 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
+/**
+题目:输入某二又树的前序遍历和中序遍历的结果，请重建该二叉树。
+*/
 func buildTree(preorder []int, inorder []int) *TreeNode {
 	if len(preorder) == 0 {
 		return nil
