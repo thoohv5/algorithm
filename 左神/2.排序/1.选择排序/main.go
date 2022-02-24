@@ -12,15 +12,15 @@ func main() {
 选择最小的和第一个交换
 */
 func sort(arr []int) []int {
-
 	for i := 0; i < len(arr); i++ {
+		chooseIndex := i
 		for j := i + 1; j < len(arr); j++ {
-			if arr[i] > arr[j] {
-				arr[i], arr[j] = arr[j], arr[i]
+			if arr[chooseIndex] > arr[j] {
+				chooseIndex = j
 			}
 		}
+		arr[i], arr[chooseIndex] = arr[chooseIndex], arr[i]
 	}
 
 	return arr
-
 }
