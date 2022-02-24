@@ -8,50 +8,42 @@ import "fmt"
 空间复杂度：O(logN)
 */
 func main() {
-	arr := []int{3, 9, 10, 30, 20, 10, 5, 7, 8, 10}
+	arr := []int{3, 9, 10, 30, 20, 10, 5, 7, 8, 10, 70}
 
-	fmt.Println(quicksort(arr, 0, 9))
+	quicksort(arr, 0, len(arr))
+	fmt.Println(arr)
 }
 
-func quicksort(arr []int, start int, end int) []int {
+func quicksort(arr []int, start int, end int) {
 
-	if start < 0 || end < 0 || end < start {
-		return []int{}
+	if start < 0 || end < 0 || end <= start {
+		return
 	}
 
-	if start == end {
-		return arr[start : end+1]
+	if start+1 == end {
+		return
 	}
 
 	// 随机参考值
-	flag := arr[end]
+	flag := arr[end-1]
 
-	sx := start - 1
-	sy := end + 1
-	for i := start; i < end && i < sy; {
+	s := start - 1
+	e := end
+	for i := start; i < e; i++ {
 		if arr[i] < flag {
-			sx++
-			arr[sx], arr[i] = arr[i], arr[sx]
-			i++
-		} else if arr[i] == flag {
-			i++
-		} else {
-			sy--
-			arr[sy], arr[i] = arr[i], arr[sy]
+			s++
+			arr[s], arr[i] = arr[i], arr[s]
+		} else if arr[i] > flag {
+			e--
+			arr[e], arr[i] = arr[i], arr[e]
+			i--
 		}
 	}
 
-	arr[sy], arr[end] = arr[end], arr[sy]
-
-	fmt.Println(arr[start:end+1], arr[start:sx], arr[sx+1:sy+1], prints(arr, sy+1, end))
-
-	return append(append(quicksort(arr, start, sx), arr[sx+1:sy+1]...), quicksort(arr, sy+1, end)...)
-
-}
-
-func prints(arr []int, start, end int) []int {
-	if end < start {
-		return []int{}
+	if e < end {
+		arr[e], arr[end-1] = arr[end-1], arr[e]
 	}
-	return arr[start:end]
+
+	quicksort(arr, start, s+1)
+	quicksort(arr, e+1, end)
 }
