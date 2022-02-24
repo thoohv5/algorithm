@@ -15,53 +15,48 @@ import "fmt"
 */
 func main() {
 	arr := []int{3, 9, 10, 30, 20, 10, 5, 7, 8, 10}
-
-	fmt.Println(mergeSort(arr, 0, 9))
+	mergeSort(arr, 0, len(arr))
+	fmt.Println(arr)
 }
 
-func mergeSort(arr []int, start int, end int) []int {
-
-	if start < 0 || end < 0 || start > end {
-		return []int{}
+func mergeSort(arr []int, start int, end int) {
+	if start < 0 || end < 0 || start >= end {
+		return
 	}
-	if start == end {
-		return arr[start : end+1]
+	if start+1 == end {
+		return
 	}
 
 	mid := start + (end-start)>>1
 
-	m1 := mergeSort(arr, start, mid)
-	m2 := mergeSort(arr, mid+1, end)
+	mergeSort(arr, start, mid)
+	mergeSort(arr, mid, end)
 
-	sum := len(m1) + len(m2)
-
-	sm := make([]int, 0, sum)
-
-	x := 0
-	y := 0
-	for x < len(m1) && y < len(m2) {
-
-		if m1[x] <= m2[y] {
-			sm = append(sm, m1[x])
+	x := start
+	y := mid
+	help := make([]int, end-start)
+	i := 0
+	for x < mid && y < end {
+		if arr[x] < arr[y] {
+			help[i] = arr[x]
 			x++
 		} else {
-			sm = append(sm, m2[y])
+			help[i] = arr[y]
 			y++
 		}
-
+		i++
 	}
 
-	for x < len(m1) {
-		sm = append(sm, m1[x])
+	for x < mid {
+		help[i] = arr[x]
 		x++
+		i++
 	}
-	for y < len(m2) {
-		sm = append(sm, m2[y])
+	for y < end {
+		help[i] = arr[y]
 		y++
+		i++
 	}
 
-	// fmt.Println(arr[start:end+1], m1, m2, sm)
-
-	return sm
-
+	copy(arr[start:], help)
 }
