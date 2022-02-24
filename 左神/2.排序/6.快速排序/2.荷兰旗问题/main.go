@@ -10,46 +10,22 @@ func main() {
 
 	arr := []int{3, 9, 10, 30, 20, 10, 5, 7, 8, 10}
 
-	// fmt.Println(marksA(arr, 9))
-	fmt.Println(marksB(arr, 9))
+	fmt.Println(marks(arr, 9))
 
 }
 
-func marksA(arr []int, num int) []int {
-	s := -1
-	ss := -1
-	for i := 0; i < len(arr); i++ {
-		if arr[i] <= num {
-			s++
-			if i > s {
-				arr[s], arr[i] = arr[i], arr[s]
-			}
-			if arr[s] < num {
-				ss++
-				if s > ss {
-					arr[ss], arr[s] = arr[s], arr[ss]
-				}
-			}
-		}
-	}
-	return arr
-}
-
-func marksB(arr []int, num int) []int {
+func marks(arr []int, num int) []int {
 	x := -1
 	y := len(arr)
-	for i := 0; i < len(arr) && y > i; {
+	for i := 0; i < y; i++ {
 		if arr[i] < num {
 			x++
 			arr[i], arr[x] = arr[x], arr[i]
-			i++
-		} else if arr[i] == num {
-			i++
-		} else {
+		} else if arr[i] > num {
 			y--
 			arr[i], arr[y] = arr[y], arr[i]
+			i--
 		}
-		// fmt.Println(i, arr, x, y)
 	}
 	return arr
 }
