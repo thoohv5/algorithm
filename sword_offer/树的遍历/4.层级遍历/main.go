@@ -43,15 +43,11 @@ type Node struct {
 func preorder(node *Node) (vals []int) {
 	stack := make([]*Node, 0)
 
-	index := 0
 	cur := node
 	stack = append(stack, cur)
-	for len(stack) > 0 && index < len(stack) {
-		cur = stack[index]
-		index++
-
+	for i := 0; i < len(stack); i++ {
+		cur = stack[i]
 		vals = append(vals, cur.Val)
-
 		if cur.Left != nil {
 			stack = append(stack, cur.Left)
 		}
