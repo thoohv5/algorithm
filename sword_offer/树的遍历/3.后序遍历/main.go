@@ -31,7 +31,7 @@ func main() {
 
 	fmt.Println(preorderA(tree))
 	fmt.Println("---------")
-	fmt.Println(preorderB(tree))
+	fmt.Println(preorderC(tree))
 
 }
 
@@ -83,6 +83,29 @@ func preorderB(node *Node) (vals []int) {
 			cur = cur.Right
 		}
 
+	}
+
+	return
+}
+
+// 迭代实现
+func preorderC(node *Node) (vals []int) {
+	stack := make([]*Node, 0)
+	reverse := make([]*Node, 0)
+	cur := node
+	for cur != nil || len(stack) > 0 {
+		for cur != nil {
+			reverse = append(reverse, cur)
+			stack = append(stack, cur)
+			cur = cur.Right
+		}
+		cur = stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		cur = cur.Left
+	}
+
+	for i := len(reverse) - 1; i >= 0; i-- {
+		vals = append(vals, reverse[i].Val)
 	}
 
 	return
